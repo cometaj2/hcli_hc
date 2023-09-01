@@ -1,0 +1,29 @@
+.TH HCLI_HC 1 "SEPTEMBER 2023" Linux "User Manuals"
+.SH NAME
+hcli_hc \- An HCLI sample application (hc) that can stream gcode and otherwise interface with a GRBL v1.1g controlled CNC.
+.SH SYNOPSIS
+.B hcli_hc
+[
+.I option
+|
+.I <command>
+]
+.SH DESCRIPTION
+.B hcli_hc
+is an HCLI sample application (hc) that can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software and OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC.
+
+.SH COMMANDS
+.IP "path"
+Provides the installation path of hcli_hc, which can be used to help locate the path of the HCLI app to use in an HCLI Connector.
+.IP help
+This help file.
+.SH OPTIONS
+.IP --version
+.B hcli_hc
+version and the version of it's dependencies.
+.SH EXAMPLE
+hcli_hc path
+
+hcli_hc --version
+
+gunicorn --workers=1 --threads=1 --chdir `hcli_core path` "hcli_core:connector(\\"`hcli_hc path`\\")"

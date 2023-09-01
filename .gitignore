@@ -1,0 +1,20 @@
+# general things to ignore
+.DS_Store
+.cache
+build/
+dist/
+chroot/
+*.egg-info/
+*.egg
+*.py[cod]
+*.pyc
+__pycache__/
+*.so
+*~
+tests/__pycache__
+networks.json
+chat.output
+context.json
+Pipfile
+Pipfile.lock
+NOTES.txt

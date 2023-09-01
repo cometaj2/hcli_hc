@@ -1,0 +1,475 @@
+{
+    "hcliTemplateVersion": "1.0",
+    "executable": [
+        {
+            "command": "hc",
+            "http": "post"
+        },
+        {
+            "command": "hc -j {p}",
+            "http": "post"
+        },
+        {
+            "command": "hc scan",
+            "http": "post"
+        },
+        {
+            "command": "hc home",
+            "http": "post"
+        },
+        {
+            "command": "hc unlock",
+            "http": "post"
+        },
+        {
+            "command": "hc reset",
+            "http": "post"
+        },
+        {
+            "command": "hc status",
+            "http": "post"
+        },
+        {
+            "command": "hc stop",
+            "http": "post"
+        },
+        {
+            "command": "hc resume",
+            "http": "post"
+        },
+        {
+            "command": "hc jobs",
+            "http": "get"
+        },
+        {
+            "command": "hc jog",
+            "http": "post"
+        },
+        {
+            "command": "hc zero",
+            "http": "post"
+        },
+        {
+            "command": "hc logs",
+            "http": "get"
+        },
+        {
+            "command": "hc setzero xyz",
+            "http": "post"
+        },
+        {
+            "command": "hc connect",
+            "http": "post"
+        },
+        {
+            "command": "hc connect {p}",
+            "http": "post"
+        },
+        {
+            "command": "hc disconnect",
+            "http": "post"
+        }
+    ],
+    "cli": [
+        {
+            "id": "hc",
+            "name": "hc",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "hc - an HCLI for interacting with a CNC via GRBL Controller (e.g. an OpenBuilds BlackBox controller) via input and output streams"
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc <command>"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"hc\" HCLI allows you to control a CNC through the command line (e.g. OpenBuilds C-Beam Machine) via the GRBL protocol, and acts as an interface for your CNC (e.g. OpenBuilds Interface CNC Touch) to stream gcode, to home, or to jog your CNC. You can send control commands and gcode commands as an input stream, and the hc service will respond accordingly.\\n\\nThis HCLI relies on the use of a serial port to a GRBL compliant controller. You can scan to find out which serial device you can send gcode streams to.\\n\\nThis HCLI handles sequencing of queued jobs properly (i.e. hc -j 'jobname' by waiting for the GRBL to report being idle before picking up the next job in the queue. This allows for job sequences to be an admixture of gcode and commands such as feed hold '!' or status '?', which wouldn't normally be intermixed with gcode files. This feature, coupled with HCLI's native capabilities allows for complex scripted or coded automated job sequences.\\n\\nNote that the hc CNC HCLI doesn't queue jobs properly for sequential streaming execution in a multiprocess context (e.g. multiple workers under gunicorn). Please configure the environment such that the HCLI runs in a single process (e.g. --workers=1 under gunicorn). See \"hcli_core help\" for an example configuration for hc."
+                },
+                {
+                    "name": "examples",
+                    "description": "hc scan\\n\\nhc connect\\n\\nhc connect /dev/tty.usbserial-AR0JI0GV\\n\\necho '$$' | hc\\n\\ncat test.gcode | hc\\n\\ncat test.gcode | hc -j 'test job'"
+                }
+            ],
+            "command": [
+                {
+                    "href": "hcscan",
+                    "name": "scan",
+                    "description": "The \"scan\" command scans and lists connected serial devices."
+                },
+                {
+                    "href": "hcreset",
+                    "name": "reset",
+                    "description": "The \"reset\" command stops the CNC by sending the soft reset ctrl-x command to the GRBL controller."
+                },
+                {
+                    "href": "hcstatus",
+                    "name": "status",
+                    "description": "The \"status\" command returns the current status of the GRBL controller by sending the ? command."
+                },
+                {
+                    "href": "hcstop",
+                    "name": "stop",
+                    "description": "The \"stop\" command pauses the CNC by sending the ! command to the GRBL controller (feed hold)."
+                },
+                {
+                    "href": "hcresume",
+                    "name": "resume",
+                    "description": "The \"resume\" command resumes the CNC by sending the ~ command to the GRBL controller (cycle start)."
+                },
+                {
+                    "href": "hcconnect",
+                    "name": "connect",
+                    "description": "The \"connect\" command connects to the GRBL controller via serial port by attempting to wake it up."
+                },
+                {
+                    "href": "hchome",
+                    "name": "home",
+                    "description": "The \"home\" command is used to home the CNC by sending the '$H' signal."
+                },
+                {
+                    "href": "hcunlock",
+                    "name": "unlock",
+                    "description": "The \"unlock\" command is used to kill an alarm lock by sending the '$X' signal."
+                },
+                {
+                    "href": "hcjobs",
+                    "name": "jobs",
+                    "description": "The \"jobs\" command lists all queued jobs."
+                },
+                {
+                    "href": "hcjog",
+                    "name": "jog",
+                    "description": "The \"jog\" command allows for real-time continuous jogging via the arrow keys."
+                },
+                {
+                    "href": "hczero",
+                    "name": "zero",
+                    "description": "The \"zero\" command sends the G00 X0 Y0, then G0 Z0, gcode blocks to send the CNC to working coordinates 0, 0, 0 for x, y, and z."
+                },
+                {
+                    "href": "hclogs",
+                    "name": "logs",
+                    "description": "The \"logs\" command allows for a client to poll for a log tail against the hc service log output stream."
+                },
+                {
+                    "href": "hcsetzero",
+                    "name": "setzero",
+                    "description": "The \"setzero\" command is used to setup the (G54 Coordinates) to zero for, x, y, or z."
+                },
+                {
+                    "href": "hcdisconnect",
+                    "name": "disconnect",
+                    "description": "The \"disconnect\" command disconnects from the GRBL controller, which also interrupts any ongoing operation."
+                }
+            ],
+            "option": [
+                {
+                    "href": "hc-j",
+                    "name": "-j",
+                    "description": "The \"-j\" option is used to help supply a friendly job name to indicate job purpose and sequencing."
+                }
+            ],
+            "parameter": {
+                "href": "hc-job"
+            }
+        },
+        {
+            "id": "hcscan",
+            "name": "scan",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "scan - scan for avaiable serial ports to stream gcode to."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc scan"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"scan\" lists available serial devices that could be used to stream control and gcode commands to."
+                }
+            ]
+        },
+        {
+            "id": "hcreset",
+            "name": "reset",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "reset - sends the soft reset ctrl-x signal (0x18) to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc stop"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"reset\" command sends the ctrl-x signal (0x18) to the GRBL controller. This immediately halts and safely soft resets Grbl without a power-cycle. The immediate queue, job queue and serial buffers are also cleared to avoid subsequent commands executing unexpectedly."
+                }
+            ]
+        },
+        {
+            "id": "hcstatus",
+            "name": "status",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "status - sends the ctrl-x signal (0x18) to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc stop"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"status\" command sends the status signal (?) to the GRBL controller. "
+                }
+            ]
+        },
+        {
+            "id": "hcstop",
+            "name": "stop",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "stop - sends the feed hold signal (!) to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc stop"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"stop\" command sends the feed hold signal (!) to the GRBL controller to pause motion."
+                }
+            ]
+        },
+        {
+            "id": "hcresume",
+            "name": "resume",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "resume - sends the cycle start signal (~) to the GRBL controller to resume motion."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc resume"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"resume\" command sends the cycle start signal (~) to the GRBL controller to resume motion."
+                }
+            ]
+        },
+        {
+            "id": "hcconnect",
+            "name": "connect",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "connect - connects to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc connect <serialport>"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"connect\" command connects to the GRBL controller via a serial port provided as an optional parameter. Without the optional serialport parameter, hc scans for all available serial ports and tries to connect to each in sequence until it finds a GRBL controller. This may be disruptive to serial devices in certain cases or may connect to the wrong GRBL controller if more than one is connected via serial port. If disruptive, impractical, incorrect, or if you prefer to avoid risks, favor providing the correct serial port directly as a parameter by first listing available serial ports via \"hc scan\"."
+                },
+                {
+                    "name": "examples",
+                    "description": "hc connect\\n\\nhc connect /dev/tty.usbserial-AR0JI0GV"
+                }
+            ],
+            "parameter": {
+                "href": "hcconnectparameter"
+            }
+        },
+        {
+            "id": "hchome",
+            "name": "home",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "home - sends the CNC to the home position; to the configured limit switches for all the axes."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc home"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"home\" command is used to home the CNC by sending the '$H' signal."
+                }
+            ]
+        },
+        {
+            "id": "hcjobs",
+            "name": "home",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "jobs - returns a list of jobs that are queued up to be streamed to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc jobs"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"jobs\" command is used to return a list of queued jobs."
+                }
+            ]
+        },
+        {
+            "id": "hcjog",
+            "name": "home",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "jog - jogs the CNC via the $J signal to the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc jog"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"jog\" command accepts a continuous input stream of arrow key bytes, or other bytes, from the terminal and sends corresponding jog commands to the GRBL controller to get a real-time like jogging response from a CNC.\\n\\nNote that the terminal has to send bytes fast enough for jogging to respond correctly. If you are experiencing stuttering problems with continuous jogging, increase the repeat rate and initial delay of keystrokes in your terminal.\\n\\n\"left\" x-.\\n\\n\"right\" x+.\\n\\n\"up\" y+.\\n\\n\"down\" y-.\\n\\n\";\" z+.\\n\\n\"/\" z-.\\n\\n\"-\" reduces the feed rate by 250.\\n\\n\"=\" increases the feed rate by 250.\\n\\n\"[\" reduces the increment scaling factor by 1.\\n\\n\"]\" increases the increment scaling factor by 1.\\n\\n\"s\" output jogger status.\\n\\n\"u\" toggles the unit; imperial (default) or metric.\\n\\n\"i\" sets incremental mode.\\n\\n\"c\" sets continuous mode (default)"
+                },
+                {
+                    "name": "example",
+                    "description": "trap 'stty sane' SIGINT; stty -icanon -echo; while input=$(dd bs=20 count=1 2>/dev/null); do echo \"$input\" | hc jog; done"
+                }
+            ]
+        },
+        {
+            "id": "hcunlock",
+            "name": "unlock",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "unlock - unlocks the GRBL controller after an alarm is raised."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc home"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"unlock\" command is used to kill an alarm lock by sending the '$X' signal."
+                }
+            ]
+        },
+        {
+            "id": "hczero",
+            "name": "zero",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "zero - tells the GRBL to go to work coordinates 0, 0, 0 for x, y, and z."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc zero"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"zero\" command goes to working coordinates 0, 0, 0 via a 'G00 X0 Y0' gcode block then 'G0 Z0' gcode block."
+                }
+            ]
+        },
+        {
+            "id": "hclogs",
+            "name": "logs",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "logs - tails hc service logs."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc logs"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"logs\" command allows for a client to poll for a log tail against the hc service log output stream."
+                },
+                {
+                    "name": "examples",
+                    "description": "while true; do hc logs; sleep 0.01; done"
+                }
+            ]
+        },
+        {
+            "id": "hcsetzero",
+            "name": "setzero",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "setzero - tells the GRBL controller to set the work offset to zero relative to machine coordinates (G54) for x, y, or z."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc setzero"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"setzero\" command is used to setup the (G54 Coordinates) to zero for, x, y, or z."
+                },
+                {
+                    "name": "example",
+                    "description": "hc setzero xyz"
+                } 
+            ],
+            "command": [
+                {
+                    "href": "hcsetzeroxyz",
+                    "name": "xyz",
+                    "description": "Sets zero for xyz."
+                }
+            ]
+        },
+        {
+            "id": "hcdisconnect",
+            "name": "disconnect",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "disconnect - disconnects from the GRBL controller."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc disconnect"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"disconnect\" command disconnects from the GRBL controller."
+                }
+            ]
+        },
+        {
+            "id": "hcsetzeroxyz",
+            "name": "xyz",
+            "section": [
+                {
+                    "name": "name",
+                    "description": "xyz - sets zero for x, y, and z (G54 coordinates)."
+                },
+                {
+                    "name": "synopsis",
+                    "description": "hc setzero xyz"
+                },
+                {
+                    "name": "description",
+                    "description": "The \"xyz\" command sets zero for x, y, and z on the work offset relative to machine coordinates (G54)."
+                }
+            ]
+        }
+    ]
+}

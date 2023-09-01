@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+workflows:
+  main:
+    jobs:
+      - test:
+          name: "Python 3.11"
+          v: "3.11"
+      - test:
+          name: "Python 3.10"
+          v: "3.10"
+      - test:
+          name: "Python 3.9"
+          v: "3.9"
+      - test:
+          name: "Python 3.8"
+          v: "3.8"
+
+jobs:
+  test:
+    parameters:
+      v:
+        type: string
+        default: "latest"
+    docker:
+      - image: cimg/python:<< parameters.v >>
+    steps: &steps
+      - checkout
+      - run: |
+          pip install --upgrade pip
+          pip install --upgrade pytest
+          pip install --upgrade --force-reinstall setuptools
+          pip install hcli-core==0.18.1
+          pip install huckle
+          pip install gunicorn==20.1.0
+          pip install -e .
+          python -m pytest -v

@@ -1,0 +1,249 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+## [0.1.0]
+- Moved out of hcli_core's sample hcli applications for independent development.
+- The historical hcli_core changelog is retained below for context but with a sharp break and restart of versioning from here on out.
+
+## [0.18.1]
+- Fix mishandling of a disconnect exception and direct service interaction with the serial device.
+- Fix nudger termination edge case.
+- Fix to isolate the controler realtime loop to a single thread.
+- Fix streamer termination check and reset logic to avoid realtime queue pickup during reset.
+
+## [0.18.0]
+- Redesign to a controller model to improve the stability of GRBL flow control.
+
+## [0.17.0]
+- Add hc logs to poll a log tail when access to server log stdout isn't available (single client polling only).
+- Add hc jobs server log output and consolidate log reversal and log output into the jobs service.
+- Add hc connect (without parameter) to try and auto connect to scanned serial ports, and stops at the first GRBL controller found.
+- Modify log output to retain space between gcode commands for readability.
+- Fix to avoid streaming empty lines from gcode files to avoid unexpected streamer code repetition.
+- Fix to remove both line feeds and carriage returns correctly when processing gcode files.
+
+## [0.16.0]
+- Fix missing pyserial dependency in package.
+- Add hc setzero xyz to set zero on all axis.
+
+## [0.15.0]
+- Add hc jog status, scaling, and incremental imperial (default) and metric jogging.
+- Add hc jog documentation
+- Fix to have streaming job with control commands unwrap to be executed via immediate to have clean defered execution of immediate commands.
+- Fix wait in streamer to help ensure the ? status wait mechanism doesn't bleed in the log output.
+- Fix job queue clear on reset to avoid queued immediate command unexpectedly executing after a reset.
+- Simplify jogger keycode to gcode case logic. Chunk keycode stripping is no longer needed.
+- Cleanup log output on job sequence (inverted order).
+
+## [0.14.0]
+- Add real-time continuous Jog via keyboard input feed (arrow keys, ; and /).
+- Add a queue wait to ensure complete streaming job execution before picking up the next job
+
+## [0.13.2]
+- Fix hc disconnect and abort procedure for immediate, device, and streamer (graceful termination).
+- Update to disallow all $ commands on feed hold to avoid stalling immediate processing.
+- Add error messages on error code exceptions.
+
+## [0.13.1]
+- Add hc jobs listing support
+- Update home to be immediate rather than job streaming.
+- Cleanup naming inconsistencies.
+
+## [0.13.0]
+- Add hc, a sample HCLI to enable streaming of G-Code to a CNC through a GRBL 1.1g compliant device.
+- Fix parameter quoted string split argument problem
+
+## [0.12.3]
+- Fix edge case when system doesn't exist in the context.json.
+
+## [0.12.2]
+- Update README huckle usage documentation.
+
+## [0.12.1]
+- Update README huckle usage documentation.
+
+## [0.12.0]
+- Update hg GPT-3.5 sample application to allow for persistent behavior setting in a conversation (system).
+
+## [0.11.9]
+- Update README to refine installation and usage information.
+
+## [0.11.8]
+- Update to README for added support context and to lay out future improvement ideas.
+
+## [0.11.7]
+- Update to even up carriage returns in blank chat output and context output
+- Update setup.py to make media-type for rst file explicity to text/x-rst to pass twine check
+
+## [0.11.6]
+- Update to add dry run to publishing to inspect the pypi package properly before publishing
+- Add dummy empty files chat.output and context.json to ensure they are wiped out on pip uninstall
+
+## [0.11.5]
+- Update to exclude working files for hg HCLI
+
+## [0.11.4]
+- Add Python version badge
+- Adding circleci coverage for Python 3.11
+- Remove hg sample comment that no longer applies
+- Refactor hg sample cli.py code to increase clarity
+
+## [0.11.3]
+- Cleanup leftover inconsistencies in README.rst
+
+## [0.11.2]
+- Cleanup of building process to avoid forms of caching (build cleanly from scratch)
+
+## [0.11.1]
+- Cleanup of the README.rst instructions for installing a sample HCLI app
+
+## [0.11.0]
+- Adding a GPT-3.5 chatbot sample app (hg)
+
+## [0.10.6]
+- Remove NOTES.txt and add testing support for python 3.10.
+- Remove NOTES.txt and add testing support for python 3.10.
+
+## [0.10.5]
+- Fix deprecated falcon response.body reference in api.py in favor of the recommended response.text.
+
+## [0.10.4]
+- Fix to additionally create a build distribution in pypi to avoid slower pip incorporation in virtual environments.
+
+## [0.10.3]
+- Cleaned up href URL on edef of getexecute and postexecute.
+
+## [0.10.2]
+- Remove requirements.txt file.
+
+## [0.10.1]
+- Remove Pipenv files.
+
+## [0.10.0]
+- Update to remove the need to include the root when invoking the hcli_core module in the hcli_core package.
+
+## [0.9.0]
+- Update to the Falcon 3.1.0 dependency and code retrofit to use App instead of API.
+
+## [0.8.0]
+- Update to gunicorn 20.1.0 in automated tests
+
+## [0.7.0]
+- Update to avoid the extraneous options and parameter json objects outside commands in template.json
+
+## [0.6.7]
+- Update to unify the secondary home href across all resource types.
+
+## [0.6.6]
+- Update to include a secondary home route to facilitate reverse proxying in backend API contexts.
+
+## [0.6.5]
+- Update the watch.sh demo script to include a short description of what the script does.
+- Update the listen.sh demo script to include additional information about silence detection fine tuning.
+- Fix a bug in the nw sample that returned the wrong allocated ip address when using prefix based allocation.
+
+## [0.6.4]
+- Update the watch.sh demo script for hptt to make use of hptt rather than curl for streaming from the service.
+
+## [0.6.3]
+- Update the listen.sh demo script for hptt to auto stop on silence detection.
+
+## [0.6.2]
+- Add updated hptt demo scripts that make use of VLC and sox ignore-length for live-like streaming to and from the sample hptt service.
+
+## [0.6.1]
+- Add example script for testing hptt listening (server hosting a radio gateway)
+- Add example script for testing hptt watching (watching for an active ptt status against a channel)
+
+## [0.6.0]
+- Change hptt ptt status to active vs inactive
+- Add ptt status check for named channel
+- Add delay after streaming to the channel to help channel pollers catch the active ptt status
+
+## [0.5.2]
+- Fix to work with the latest version of huckle
+- Fix to only allow a single process streaming to a given channel on the hptt sample
+- Update config to state support for python 3.8 and 3.9
+
+## [0.5.1]
+- Update to test with the latest verison of huckle
+
+## [0.5.0]
+- Fix hcli_core README documentation for factory style calling with parameter passing.
+- Add hptt; a sample HCLI that works with half-duplex audio streams to link disjointed radio network gateways.
+- Move to circleci from travis-ci.
+- Add auto testing for python 3.8 and 3.9
+
+## [0.4.6]
+- Fix hcli_core to allow application factory style calling.
+
+## [0.4.5]
+- Fix bug in free CIDR allocation under nw sample app
+
+## [0.4.4]
+- Exclude networks.json from sdist in nw sample app
+
+## [0.4.3]
+- Disallow nw group create with the same name multiple times
+- Disallow nw group mv landing on a new name that already exists
+
+## [0.4.2]
+- Change to only present param links when a parameter would be required for a command or option
+- Fix broken deallocate option -n in nw sample app
+- Update multi quote in hfm and nw sample apps HCLI docs
+
+## [0.4.1]
+- Fix incorrect -n flag name on nw sample app
+- Fix missing hcli_version on HCLI command, option, execution and parameter per HCLI 1.0 spec
+
+## [0.4.0]
+- Update README documentation to clarify what HCLI Core does
+- Update nw sample app to include network allocation for a specific logical group & network.
+- Update nw sample app to include network deallocation for a specific logical group & network
+- Update nw sample app to include network group listing
+- Update nw sample app to include adding and removing CIDR range in the free pool for a given logical group.
+- Fix empty or non-conformant json error on jsonf go default hcli app
+
+## [0.3.0]
+- Update to clarify the README.
+- Update hub to column separated output.
+- Update hub to allow listing all services registered to a namespace.
+- New sample application nw for managing network CIDR block allocation (deconflicted)
+- Fix execution matching to non-greedy to avoid parameters getting cut out in multi-parameter command lines
+
+## [0.2.1]
+- Update documentation to showcase hfm instead of hub.
+- Prune chroot out of hfm sample.
+
+## [0.2.0]
+- Add xenial python 3.7 support.
+- Test using cli auto discovery with the latest version of huckle.
+- Add tests for hfm sample.
+- Add ls and chroot to hfm sample.
+
+## [0.1.6]
+- Add Travis CI test for jsonf default.
+- Cleanup supported python version to take into account deprecation (2.7 and 3.4) and travis support.
+
+## [0.1.5]
+- Remove jsonf from samples since it's the default.
+- Fix hub sample HCLI parameter handling ("'param'" vs '"param"').
+
+## [0.1.4]
+- Fix HCLI parameter quotes defect on hfm sample.
+
+## [0.1.3]
+- Fix incorrect path for hfm sample.
+
+## [0.1.2]
+- Bring the HCLI samples into the codebase so that wheel distributions can use it since package_data doesn't seem to want to address folders correctly.
+
+## [0.1.1]
+- Fix broken pip data file distribution.
+
+## [0.1.0]
+- Add basic HCLI 1.0 spec support
+- Add basic documentation
