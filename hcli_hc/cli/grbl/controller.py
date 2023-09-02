@@ -12,6 +12,10 @@ logging = logger.Logger()
 
 
 # Singleton GRBL controller that handles all reads and writes to and from the serial device.
+#
+# The controller makes use of a streaming queues and realtime queues (both for requests/responses) to
+# help buffer against direct access to the GRBL controller, which has a limited and idiosyncratic request and response buffer,
+# and to resolve potential concurrency problems. This helps enhance flow control.
 class Controller:
     instance = None
     rq = None
@@ -28,8 +32,8 @@ class Controller:
         if self.instance is None:
             self.instance = super().__new__(self)
 
-            self.device = d.Device()
-            self.nudger = n.Nudger()
+            self.device = d.Device() # serial device singleton
+            self.nudger = n.Nudger() # helps prevent controller stalling and monitors for long-running operations
 
             self.rq = q.Queue()  # realtime queue (for realtime commands that need to execute immediately)
             self.rrq = q.Queue() # realtime response queue
@@ -87,6 +91,7 @@ class Controller:
         self.paused = False
         logging.info('[ hc ] ' + command.decode() + ' ok')
 
+    # returns GRBL status
     def status(self):
         self.realtime_write(b'?')
         self.realtime_message()
@@ -106,6 +111,7 @@ class Controller:
 
             time.sleep(0.01)
 
+    # attempts to connect to a serial device to wake up a GRBL controller
     def connect(self, device_path):
         self.connected = False
         self.trying = True
@@ -165,7 +171,8 @@ class Controller:
         self.connected = False
         self.device.close()
 
-    # active process commands to the grbl read buffer. this is the only method that should read/write directly from/to serial grbl.
+    # sends commands to the grbl read buffer and reads responses.
+    # this is the only method that should read/write directly from/to serial grbl.
     def realtime(self):
         try:
             while True:
