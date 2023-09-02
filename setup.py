@@ -53,7 +53,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='hcli_hc',
     version=package.__version__,
-    description='An HCLI connector that can be used to expose any CLI expressed through hypertext command line interface (HCLI) semantics.',
+    description='HCLI hc is a pypi wrapper that contains an HCLI sample application (hc); hc can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software or OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC.',
     long_description_content_type="text/x-rst",
     long_description=long_description,
     url='https://github.com/cometaj2/hcli_hc',
