@@ -20,6 +20,7 @@ def test_function():
     set -x
 
     export PATH=$PATH:~/.huckle/bin
+    echo '$H' | hc -j '$H'
     hc jobs
     kill $(ps aux | grep '[g]unicorn' | awk '{print $2}')
     """
@@ -28,4 +29,4 @@ def test_function():
     out, err = p2.communicate()
     result = out.decode('utf-8')
 
-    assert(result == '{}\n')
+    assert(result == '{\n    "1": "$H"\n}\n')
