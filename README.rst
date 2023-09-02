@@ -1,11 +1,11 @@
 HCLI hc |pyver|_ |build status|_ |pypi|_
 ==========================================
 
-hcli_hc contains an HCLI sample application (hc) that can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software or OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC.
+HCLI hc is a pypi wrapper that contains an HCLI sample application (hc); hc can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software or OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC.
 
 ----
 
-hcli_hc wraps hc (an HCLI) and is intended to be used with an HCLI Client [1] as presented via an HCLI Connector [2].
+HCLI hc wraps hc (an HCLI) and is intended to be used with an HCLI Client [1] as presented via an HCLI Connector [2].
 
 You can find out more about HCLI on hcli.io [3]
 
@@ -18,7 +18,7 @@ You can find out more about HCLI on hcli.io [3]
 Installation
 ------------
 
-hcli_hc requires a supported version of Python and pip.
+HCLI hc requires a supported version of Python and pip.
 
 You'll need an HCLI Connector to run hc. For example, you can use HCLI Core (https://github.com/cometaj2/hcli_core), a WSGI server such as Green Unicorn (https://gunicorn.org/), and an HCLI Client like Huckle (https://github.com/cometaj2/huckle).
 
