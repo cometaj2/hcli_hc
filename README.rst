@@ -57,7 +57,6 @@ on github.
 Supports
 --------
 
-- Running only a single process and single threading.
 - Gcode streaming
 - Immediate/realtime GRBL command execution (including during gcode streaming)
 - Gcode job sequences
@@ -77,7 +76,7 @@ Bugs
 
 .. |build status| image:: https://circleci.com/gh/cometaj2/hcli_hc.svg?style=shield
 .. _build status: https://circleci.com/gh/cometaj2/huckle
-.. |pypi| image:: https://badge.fury.io/py/hcli-hc.svg
-.. _pypi: https://badge.fury.io/py/hcli-hc
+.. |pypi| image:: https://img.shields.io/pypi/v/hcli-hc?color=%2300aa55
+.. _pypi: https://pypi.org/project/hcli-hc
 .. |pyver| image:: https://img.shields.io/pypi/pyversions/hcli-hc.svg
-.. _pyver: https://pypi.python.org/pypi/hcli-hc
+.. _pyver: https://pypi.org/project/hcli-hc
