@@ -1,7 +1,3 @@
 # Include the license file, manpage data, and sample hclis
 include LICENSE.txt README.rst
-recursive-include hcli_core/data *
-recursive-include hcli_core/sample *
-recursive-include hcli_core/cli *
-exclude hcli_core/sample/nw/cli/networks.json
-prune hcli_core/sample/hfm/cli/chroot
+recursive-include hcli_hc/data *
