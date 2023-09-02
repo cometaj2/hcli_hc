@@ -1,4 +1,4 @@
-HCLI hc |pyver|_ |build status|_ |pypi|_
+HCLI hc |pypi|_ |build status|_ |pyver|_
 ========================================
 
 HCLI hc is a pypi wrapper that contains an HCLI sample application (hc); hc can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software or OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC.
@@ -76,7 +76,7 @@ Bugs
 
 .. |build status| image:: https://circleci.com/gh/cometaj2/hcli_hc.svg?style=shield
 .. _build status: https://circleci.com/gh/cometaj2/huckle
-.. |pypi| image:: https://img.shields.io/pypi/v/hcli-hc
+.. |pypi| image:: https://img.shields.io/pypi/v/hcli-hc?label=hcli-hc
 .. _pypi: https://pypi.org/project/hcli-hc
 .. |pyver| image:: https://img.shields.io/pypi/pyversions/hcli-hc.svg
 .. _pyver: https://pypi.org/project/hcli-hc
