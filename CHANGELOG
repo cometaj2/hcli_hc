@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.7]
 - Reorder badges in README and update label.
+- Fix to point to hcli_hc circleci status in README.
 
 ## [0.1.6]
 - Update to do in README.
