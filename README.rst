@@ -76,7 +76,7 @@ Bugs
 
 .. |build status| image:: https://circleci.com/gh/cometaj2/hcli_hc.svg?style=shield
 .. _build status: https://circleci.com/gh/cometaj2/huckle
-.. |pypi| image:: https://img.shields.io/pypi/v/hcli-hc?color=%2300aa55
+.. |pypi| image:: https://img.shields.io/pypi/v/hcli-hc
 .. _pypi: https://pypi.org/project/hcli-hc
 .. |pyver| image:: https://img.shields.io/pypi/pyversions/hcli-hc.svg
 .. _pyver: https://pypi.org/project/hcli-hc
