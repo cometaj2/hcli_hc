@@ -66,10 +66,10 @@ Supports
 To Do
 -----
 
-- Allow for multiprocess multithreading support.
-- Allow for job resequencing.
-- Allow for job removal.
-- Allow for job insertion in an existing job sequence.
+- Update GRBL controller to include support for additional commands and/or echo of hexadecimal values.
+- Update hc to include job removal, insertion and resequencing.
+- Update hc to function in a multi-process environment (e.g. multiple workers in gunicorn).
+- Implement GRBL emulation tests for hc.
 
 Bugs
 ----
