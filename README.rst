@@ -29,7 +29,7 @@ You'll need an HCLI Connector to run hc. For example, you can use HCLI Core (htt
     pip install hcli-core
     pip install huckle
     pip install gunicorn
-    gunicorn --workers=1 --threads=1 -b 127.0.0.1:8000 --chdir `hcli_core path` "hcli_hc:connector(\"`hcli_hc path`\")"
+    gunicorn --workers=1 --threads=1 -b 127.0.0.1:8000 --chdir `hcli_core path` "hcli_core:connector(\"`hcli_hc path`\")"
 
 Usage
 -----

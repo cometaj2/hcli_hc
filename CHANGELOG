@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.1.7]
+## [0.1.9]
+- Fix incorrect command to launch hcli_hc with gunicorn in README.
+- Fix CHANGELOG version typo
+
+## [0.1.8]
 - Update hcli_hc man page to mention wrapping of the hc HCLI.
 
 ## [0.1.7]
