@@ -5,6 +5,9 @@ The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.1.7]
+- Update hcli_hc man page to mention wrapping of the hc HCLI.
+
+## [0.1.7]
 - Reorder badges in README and update label.
 - Fix to point to hcli_hc circleci status in README.
 - Add grbl/controller documentation.
