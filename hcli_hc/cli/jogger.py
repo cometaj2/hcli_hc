@@ -4,6 +4,8 @@ import time
 import logger
 import queue as q
 import error
+import threading
+import locker
 from functools import partial
 
 from grbl import controller as c
@@ -25,10 +27,11 @@ class Jogger:
     mode = None
     scale = None
     unit = None
+    locker = None
 
     def __new__(self):
         if self.instance is None:
-
+            self.locker = locker.Locker()
             self.instance = super().__new__(self)
             self.heartbeat = False
             self.controller = c.Controller()
@@ -68,6 +71,8 @@ class Jogger:
             logging.debug("[ hc ] false heart")
             bline = b'!'
             self.controller.realtime_write(bline)
+            bline = b'~'
+            self.controller.realtime_write(bline)
             self.clear()
             self.jog_count = 0;
 
@@ -86,12 +91,25 @@ class Jogger:
                 self.jog_count = 0;
                 self.clear()
 
+    def lock(self):
+        self.locker.count()
+
+    def unlock(self, cue):
+        self.locker.start()
+        locked = self.locker.locked()
+        if locked:
+            logging.info("[ hc ] jogger locked: " + str(locked) + ". press 'esc' to unlock.")
+        else:
+            logging.info("[ hc ] jogger locked: " + str(locked))
+
     # We intentionally try to expire by default to stop continuous jogging if no heartbeat signal has been received in awhile
     # We want to avoid crashing the CNC by waiting for a positive stop signal.
     def jog(self):
         try:
             self.is_running = True
             self.heartbeat = True
+
+            self.locker.start()
 
             self.start_time = time.monotonic()  # Get the current time at the start to evaluate stalling and nudging
 
@@ -139,6 +157,7 @@ class Jogger:
     # real-time jogging by continuously reading the inputstream
     def parse(self, inputstream):
         cases = {
+            b'\x1b':   lambda chunk: self.unlock("escape"),
             b'\x1b[D': lambda chunk: self.modal_execute("xleft"),
             b'\x1b[C': lambda chunk: self.modal_execute("xright"),
             b'\x1b[A': lambda chunk: self.modal_execute("yup"),
@@ -159,8 +178,16 @@ class Jogger:
             logging.debug("[ hc ] chunk " + str(chunk))
             first = chunk[:1]
             if first == b'\x1b':
-                action = cases.get(chunk[:3], lambda chunk: None)
+                second = chunk[:2]
+                if second == b'\x1b\x1b' or second == b'\x1b\n':
+                    action = cases.get(chunk[:1], lambda chunk: None)
+                else:
+                    if not self.locker.locked():
+                        self.locker.start()
+                    action = cases.get(chunk[:3], lambda chunk: None)
             else:
+                if not self.locker.locked():
+                    self.locker.start()
                 action = cases.get(chunk[:1], lambda chunk: None)
             action(chunk)
 
@@ -198,10 +225,13 @@ class Jogger:
             "zdown" : b'$J=G91 G21 Z-1000 F' + str(self.feed).encode() + b'\n'
         }
 
-        if self.mode == "continuous":
-            self.execute(continuous.get(axis))
-        elif self.mode == "incremental":
-            self.execute(incremental.get(axis))
+        if not self.locker.locked():
+            if self.mode == "continuous":
+                self.execute(continuous.get(axis))
+            elif self.mode == "incremental":
+                self.execute(incremental.get(axis))
+        else:
+            logging.info("[ hc ] jogger locked: " + str(self.locker.locked()) + ". press 'esc' to unlock")
 
     def execute(self, gcode):
         if gcode is not None:
@@ -249,6 +279,11 @@ class Jogger:
 
     def jogger_status(self):
         logging.info("[ hc ] ------------------------------------------")
+        locked = self.locker.locked()
+        if locked:
+            logging.info("[ hc ] jogger locked: " + str(locked) + ". press 'esc' to unlock.")
+        else:
+            logging.info("[ hc ] jogger locked: " + str(locked))
         logging.info("[ hc ] jogger mode: " + str(self.mode))
         logging.info("[ hc ] jogger unit: " + str(self.unit))
         logging.info("[ hc ] jogger feed: " + str(self.feed))

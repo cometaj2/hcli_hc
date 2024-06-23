@@ -200,6 +200,7 @@ class Service:
 
     # we process jogging commands and queued jobs
     def process_job_queue(self):
+        joglocker_start_time = 0
         with self.streamer.lock:
             while True:
                 if self.controller.connected:
@@ -214,6 +215,8 @@ class Service:
                         lambdajob = queuedjob[1]
                         job = self.schedule(lambdajob)
                         logging.info("[ hc ] streaming " + jobname)
+
+                    self.jogger.lock()
 
                 time.sleep(0.1)
 
