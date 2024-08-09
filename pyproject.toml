@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hcli_hc"
+dynamic = ["version", "dependencies"]
+description = "HCLI hc is a pypi wrapper that contains an HCLI sample application (hc); hc can can act both as a gcode streamer (e.g. for OpenBuilds Blackbox controller v1.1g) and CNC interface. In other words, this HCLI acts in the same capacity as the OpenBuilds CONTROL software or OpenBuilds Interface CNC Touch hardware to help control a GRBL v1.1g controlled CNC."
+readme = "README.rst"
+authors = [{name = "Jeff Michaud", email = "cometaj2@comcast.net"}]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
+]
+keywords = ["cli", "client", "server", "connector", "hypermedia", "rest", "generic", "development"]
+
+[project.urls]
+Homepage = "https://github.com/cometaj2/hcli_hc"
+
+[project.scripts]
+hcli_hc = "hcli_hc.__main__:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "hcli_hc.package.__version__"}
+dependencies = {file = "requirements.txt"}
+
+[tool.setuptools]
+packages = ["hcli_hc"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"hcli_hc" = ["**/*"]

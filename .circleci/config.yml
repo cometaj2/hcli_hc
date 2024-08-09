@@ -30,11 +30,14 @@ jobs:
     steps: &steps
       - checkout
       - run: |
+          pwd
+          ls
           pip install --upgrade pip
           pip install --upgrade pytest
           pip install --upgrade --force-reinstall setuptools
-          pip install hcli-core==0.18.1
+          pip install hcli-core
           pip install huckle
           pip install gunicorn==20.1.0
+          pip install -r requirements.txt
           pip install -e .
           python -m pytest -v

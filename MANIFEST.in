@@ -1,4 +1,4 @@
 # Include the license file, manpage data, and sample hclis
-include LICENSE.txt README.rst
+include LICENSE.txt README.rst requirements.txt
 recursive-include hcli_hc/data *
 recursive-include hcli_hc/cli *
