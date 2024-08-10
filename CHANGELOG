@@ -4,7 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.2.1]
+## [0.2.3]
+- Fix bug that prevents hc connect when a serial devices "doesn't exist".
+
+## [0.2.2]
 - Update to pyproject.toml in prepration for pip deprecation of setup.py use
 
 ## [0.2.0]
@@ -16,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.13]
 - Update README badge format.
-- Update help file to reflect module connector call
+- Update help file to reflect module connector call.
 
 ## [0.1.12]
 - Update README. Moving badges out of the title.
@@ -29,7 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.9]
 - Fix incorrect command to launch hcli_hc with gunicorn in README.
-- Fix CHANGELOG version typo
+- Fix CHANGELOG version typo.
 
 ## [0.1.8]
 - Update hcli_hc man page to mention wrapping of the hc HCLI.

@@ -23,9 +23,12 @@ class Device:
 
     def set(self, device_path):
         with self.lock:
-            self.device_path = device_path.strip('"')
-            self.device = serial.Serial(self.device_path, self.baud_rate, timeout=1)
-            logging.info("[ hc ] connected to " + self.device_path)
+            try:
+                self.device_path = device_path.strip('"')
+                self.device = serial.Serial(self.device_path, self.baud_rate, timeout=1)
+                logging.info("[ hc ] connected to " + self.device_path)
+            except:
+                pass
 
     def write(self, serialbytes):
         with self.lock:
@@ -51,5 +54,8 @@ class Device:
         return result
 
     def abort(self):
-        self.device.reset_input_buffer()
-        self.device.reset_output_buffer()
+        try:
+            self.device.reset_input_buffer()
+            self.device.reset_output_buffer()
+        except:
+            pass
