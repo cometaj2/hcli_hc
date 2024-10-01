@@ -1,2 +1,2 @@
-apscheduler==3.10.1
+apscheduler==3.10.4
 pyserial==3.5

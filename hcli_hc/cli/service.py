@@ -19,7 +19,7 @@ from collections import OrderedDict
 from grbl import controller as c
 
 logging = logger.Logger()
-logging.setLevel(logger.DEBUG)
+logging.setLevel(logger.INFO)
 
 
 class Service:
