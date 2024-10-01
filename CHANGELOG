@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.0]
+- Fix sort order for hc jobs
+- Fix instance lock acquisition and serial device stability
+- Update connection messaging
+- Improver jogger responsiveness
+
 ## [0.2.3]
 - Fix bug that prevents hc connect when a serial devices "doesn't exist".
 

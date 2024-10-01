@@ -143,7 +143,9 @@ class Controller:
                 response = self.rrq.get()
                 logging.info(response.decode())
         else:
+            self.abort()
             self.device.close()
+            time.sleep(1)
 
         self.trying = False
         return self.connected
@@ -190,7 +192,7 @@ class Controller:
 
                 time.sleep(0.01)
         except TypeError:
-            logging.info("[ hc ] unable to communicate over serial port.")
+            logging.error("[ hc ] unable to communicate over serial port. not a GRBL serial device?")
         except OSError as ose:
             pass
             #logging.info("[ hc ] unable to communicate over serial port: " + str(ose))

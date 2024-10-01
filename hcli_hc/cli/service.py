@@ -19,7 +19,7 @@ from collections import OrderedDict
 from grbl import controller as c
 
 logging = logger.Logger()
-logging.setLevel(logger.INFO)
+logging.setLevel(logger.DEBUG)
 
 
 class Service:
@@ -125,14 +125,14 @@ class Service:
         result = {}
         jobs = list(self.job_queue.queue.queue)
         for i, job in enumerate(jobs, start=1):
-            result[str(i)] = job[0]
+            result[i] = job[0]  # Use integer keys instead of strings
 
-        reversal = OrderedDict(sorted(result.items(), reverse=True))
+        reversal = OrderedDict(sorted(result.items(), key=lambda x: x[0], reverse=True))
 
-        if reversal.items():
+        if reversal:
             logging.info("[ hc ] ------------------------------------------")
             for key, value in reversal.items():
-                logging.info("[ hc ] job " + key + ": " + value)
+                logging.info(f"[ hc ] job {key}: {value}")
 
         return reversal
 

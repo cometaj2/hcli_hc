@@ -17,7 +17,7 @@ class Device:
     def __new__(self):
         if self.instance is None:
             self.instance = super().__new__(self)
-            self.lock = threading.Lock()
+            self.instance.lock = threading.Lock()
 
         return self.instance
 
@@ -28,7 +28,7 @@ class Device:
                 self.device = serial.Serial(self.device_path, self.baud_rate, timeout=1)
                 logging.info("[ hc ] connected to " + self.device_path)
             except:
-                pass
+                logging.info("[ hc ] unable to connect to " + self.device_path)
 
     def write(self, serialbytes):
         with self.lock:
@@ -40,18 +40,25 @@ class Device:
 
     # this is how we should read for buffer data to read per latest version of pyserial (e.g. 3.5).
     def in_waiting(self):
-        return self.device.in_waiting
+        with self.lock:
+            return self.device.in_waiting
 
     def reset_input_buffer(self):
-        return self.device.reset_input_buffer()
+        with self.lock:
+            return self.device.reset_input_buffer()
 
     def reset_output_buffer(self):
-        return self.device.reset_output_buffer()
+        with self.lock:
+            return self.device.reset_output_buffer()
 
     def close(self):
-        result = self.device.close()
-        logging.info("[ hc ] disconnected from " + self.device_path)
-        return result
+        with self.lock:
+            if self.device:
+                result = self.device.close()
+                logging.info("[ hc ] disconnected from " + self.device_path)
+                return result
+            else:
+                logging.error("[ hc ] the serial device is unresponsive and can't be used properly. please try to reconnect the cable.")
 
     def abort(self):
         try:

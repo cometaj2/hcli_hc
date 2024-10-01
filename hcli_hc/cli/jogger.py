@@ -130,7 +130,7 @@ class Jogger:
                 time.sleep(0.0001)
 
             while self.controller.rrq.empty():
-                time.sleep(0.02)
+                time.sleep(0.0001)
 
             while not self.controller.rrq.empty():
                 response = self.controller.realtime_readline().strip()
@@ -144,7 +144,7 @@ class Jogger:
                 if error.match(rs):
                     raise Exception()
 
-                time.sleep(0.2)
+                time.sleep(0.0001)
 
         except Exception as e:
             self.abort()
