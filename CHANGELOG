@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix instance lock acquisition and serial device stability
 - Update connection messaging
 - Improver jogger responsiveness
+- Add python 3.12 testing support
 
 ## [0.2.3]
 - Fix bug that prevents hc connect when a serial devices "doesn't exist".
