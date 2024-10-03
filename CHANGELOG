@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.2]
+- Fix a bug that would, over time, have the apscheduler go over a maximum thread limit, causing the service to crash
+
 ## [0.3.1]
 - Fix to reenable INFO mode rather than DEBUG mode
 - Update to use apscheduler 3.10.4 from 3.10.1

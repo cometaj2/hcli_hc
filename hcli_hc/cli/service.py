@@ -14,6 +14,7 @@ import jogger as jog
 import threading
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.executors.pool import ThreadPoolExecutor
 from collections import OrderedDict
 
 from grbl import controller as c
@@ -31,7 +32,11 @@ class Service:
     def __init__(self):
         global scheduler
 
-        scheduler = BackgroundScheduler()
+        executors = {
+            'default': ThreadPoolExecutor(10)
+        }
+
+        scheduler = BackgroundScheduler(executors=executors)
         self.streamer = s.Streamer()
         self.job_queue = j.JobQueue()
         self.controller = c.Controller()
