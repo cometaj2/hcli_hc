@@ -33,8 +33,14 @@ version = {attr = "hcli_hc.package.__version__"}
 dependencies = {file = "requirements.txt"}
 
 [tool.setuptools]
-packages = ["hcli_hc"]
+packages = ["hcli_hc",
+            "hcli_hc.cli",
+            "hcli_hc.cli.grbl",
+            "hcli_hc.data"]
 include-package-data = true
 
 [tool.setuptools.package-data]
 "hcli_hc" = ["**/*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["*.pyc", "*.pyo", "*.pyd", "__pycache__"]
