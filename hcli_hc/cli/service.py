@@ -108,19 +108,46 @@ class Service:
         job = self.schedule(lambda: resume_defer())
         return
 
-    def zero(self):
-        zero = b'G0 X0 Y0'
-        self.stream(io.BytesIO(zero), zero.decode())
+    def zero(self, axes=None):
+        if axes is None:
+            zero = b'G0 X0 Y0'
+            self.stream(io.BytesIO(zero), zero.decode())
 
-        zero = b'G0 Z0'
-        self.stream(io.BytesIO(zero), zero.decode())
+            zero = b'G0 Z0'
+            self.stream(io.BytesIO(zero), zero.decode())
+        else:
+            components = ['G0']
+
+            if 'x' in axes:
+                components.append('X0')
+            if 'y' in axes:
+                components.append('Y0')
+
+            if 'x' in axes or 'y' in axes:
+                zero = ' '.join(components).encode()
+                self.stream(io.BytesIO(zero), zero.decode())
+
+            components = ['G0']
+            if 'z' in axes:
+                components.append('Z0')
+                zero = ' '.join(components).encode()
+                self.stream(io.BytesIO(zero), zero.decode())
 
         status = b'?'
         self.stream(io.BytesIO(status), status.decode())
         return
 
-    def setzeroxyz(self):
-        setzero = b'G10 L20 P0 X0 Y0 Z0'
+    def setzeroxyz(self, axes):
+        components = ['G10 L20 P0']
+
+        if 'x' in axes:
+            components.append('X0')
+        if 'y' in axes:
+            components.append('Y0')
+        if 'z' in axes:
+            components.append('Z0')
+
+        setzero = ' '.join(components).encode()
         self.stream(io.BytesIO(setzero), setzero.decode())
 
         status = b'?'

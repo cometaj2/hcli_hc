@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0]
+- Add support for any combination of xyz for hc setzero (to set machine zero)
+- Add support for any combination of xyz for hc zero (to go to machine zero)
+- Fix to output scan results and jobs in a more *nix like style and remove
+- Fix to remove extra trailing carriage returns in scan and jobs output
+
 ## [0.3.3]
 - Update missing proper pyproject package configuration to dismiss build warnings
 - Update universal dist flag since Python 2.7 is not supported

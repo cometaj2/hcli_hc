@@ -50,11 +50,15 @@
             "http": "post"
         },
         {
+            "command": "hc zero {p}",
+            "http": "post"
+        },
+        {
             "command": "hc logs",
             "http": "get"
         },
         {
-            "command": "hc setzero xyz",
+            "command": "hc setzero {p}",
             "http": "post"
         },
         {
@@ -146,7 +150,7 @@
                 {
                     "href": "hczero",
                     "name": "zero",
-                    "description": "The \"zero\" command sends the G00 X0 Y0, then G0 Z0, gcode blocks to send the CNC to working coordinates 0, 0, 0 for x, y, and z."
+                    "description": "The \"zero\" command sends commands to help zero the CNC to working coordinates 0, 0, 0 for x, y, or z."
                 },
                 {
                     "href": "hclogs",
@@ -372,17 +376,24 @@
             "section": [
                 {
                     "name": "name",
-                    "description": "zero - tells the GRBL to go to work coordinates 0, 0, 0 for x, y, and z."
+                    "description": "zero - tells the GRBL to go to work coordinates 0, 0, 0 for x, y, or z."
                 },
                 {
                     "name": "synopsis",
-                    "description": "hc zero"
+                    "description": "hc zero [x | y | z | xy | xz | yz | xyz]"
                 },
                 {
                     "name": "description",
-                    "description": "The \"zero\" command goes to working coordinates 0, 0, 0 via a 'G00 X0 Y0' gcode block then 'G0 Z0' gcode block."
+                    "description": "The \"zero\" command sends commands to help zero the CNC to working coordinates 0, 0, 0 for x, y, or z. If x, y, or z are omitted, the CNC is sent to 0, 0, 0 for all axes (x and y first, zero last)."
+                },
+                {
+                    "name": "example",
+                    "description": "hc zero x\n\nhc zero yz\n\nhc zero"
                 }
-            ]
+            ],
+            "parameter": {
+                "href": "hczeroparameter"
+            }
         },
         {
             "id": "hclogs",
@@ -416,7 +427,7 @@
                 },
                 {
                     "name": "synopsis",
-                    "description": "hc setzero"
+                    "description": "hc setzero <x | y | z | xy | xz | yz | xyz>"
                 },
                 {
                     "name": "description",
@@ -424,16 +435,12 @@
                 },
                 {
                     "name": "example",
-                    "description": "hc setzero xyz"
+                    "description": "hc setzero x\n\nhc setzero xz\n\nhc setzero xyz"
                 } 
             ],
-            "command": [
-                {
-                    "href": "hcsetzeroxyz",
-                    "name": "xyz",
-                    "description": "Sets zero for xyz."
-                }
-            ]
+            "parameter": {
+                "href": "hcsetzeroparameter"
+            }
         },
         {
             "id": "hcdisconnect",

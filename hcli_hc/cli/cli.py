@@ -1,4 +1,3 @@
-import json
 import io
 import os
 import inspect
@@ -52,9 +51,10 @@ class CLI:
                 return None
 
         elif self.commands[1] == "scan":
-            scanned = json.dumps(self.service.scan(), indent=4) + "\n"
+            scanned = self.service.scan()
+            entries = "\n".join(f"{key}    {value}" for key, value in scanned.items())
 
-            return io.BytesIO(scanned.encode("utf-8"))
+            return io.BytesIO(entries.encode("utf-8"))
 
         elif self.commands[1] == "connect":
             def connect_defer():
@@ -94,15 +94,21 @@ class CLI:
             self.service.resume()
 
         elif self.commands[1] == "zero":
-            self.service.zero()
+            if len(self.commands) > 2:
+                valid_combinations = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
+                if self.commands[2].lower() in valid_combinations:
+                    self.service.zero(self.commands[2])
+            else:
+                self.service.zero()
 
         elif self.commands[1] == "logs":
             return self.service.tail()
 
         elif self.commands[1] == "setzero":
             if len(self.commands) > 2:
-                if self.commands[2] == "xyz":
-                    self.service.setzeroxyz()
+                valid_combinations = ['x', 'y', 'z', 'xy', 'xz', 'yz', 'xyz']
+                if self.commands[2].lower() in valid_combinations:
+                    self.service.setzeroxyz(self.commands[2])
 
         elif self.commands[1] == "jog":
             if self.inputstream is not None:
@@ -111,7 +117,8 @@ class CLI:
             return None
 
         elif self.commands[1] == "jobs":
-            jobs = json.dumps(self.service.jobs(), indent=4) + "\n"
+            jobs = self.service.jobs()
+            entries = "\n".join(f"{key}    {value}" for key, value in jobs.items())
 
-            return io.BytesIO(jobs.encode("utf-8"))
+            return io.BytesIO(entries.encode("utf-8"))
         return None
