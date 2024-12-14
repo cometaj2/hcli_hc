@@ -29,4 +29,4 @@ def test_function():
     out, err = p2.communicate()
     result = out.decode('utf-8')
 
-    assert(result == '{\n    "1": "$H"\n}\n')
+    assert(result == '1    $H')
