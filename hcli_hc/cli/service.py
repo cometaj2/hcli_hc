@@ -193,8 +193,7 @@ class Service:
 
     # real-time jogging by continuously reading the inputstream
     def jog(self, inputstream):
-        self.jogger.parse(inputstream)
-        return
+        return self.jogger.parse(inputstream)
 
     # execution of simple commands (immediate commands (i.e. non-gcode))
     def simple_command(self, inputstream):

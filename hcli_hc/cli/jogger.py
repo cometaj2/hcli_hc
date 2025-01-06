@@ -1,4 +1,5 @@
 import re
+import io
 import queue as q
 import time
 import logger
@@ -193,7 +194,8 @@ class Jogger:
 
             time.sleep(0.0001)
 
-        return
+        trap = "trap 'stty sane </dev/tty' SIGINT; stty -icanon -echo </dev/tty; while input=$(dd bs=20 count=1 </dev/tty 2>/dev/null); do echo \"$input\" | hc jog; done"
+        return io.BytesIO(trap.encode("utf-8"))
 
     #inches (0.001, 0.01, 0.1, 1)
     #$J=G91G21X0.0254F2000

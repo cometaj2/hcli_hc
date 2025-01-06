@@ -112,9 +112,7 @@ class CLI:
 
         elif self.commands[1] == "jog":
             if self.inputstream is not None:
-               self.service.jog(self.inputstream)
-
-            return None
+                return self.service.jog(self.inputstream)
 
         elif self.commands[1] == "jobs":
             jobs = self.service.jobs()
