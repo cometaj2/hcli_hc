@@ -348,7 +348,7 @@
                 },
                 {
                     "name": "example",
-                    "description": "hc jog | bash &/dev/null\n\ntrap 'stty sane' SIGINT; stty -icanon -echo; while input=$(dd bs=20 count=1 2>/dev/null); do echo \"$input\" | hc jog; done"
+                    "description": "hc jog | bash &>/dev/null\n\ntrap 'stty sane' SIGINT; stty -icanon -echo; while input=$(dd bs=20 count=1 2>/dev/null); do echo \"$input\" | hc jog; done"
                 }
             ]
         },

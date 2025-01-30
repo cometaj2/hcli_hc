@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is loosely based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.1]
+- Fix hc jog documentation (missing > on the new hc jog redirect command)
+
 ## [0.5.0]
 - Add helper output to hc jog for easier tty bash looping
 - Update apscheduler to version 3.5
