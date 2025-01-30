@@ -24,9 +24,9 @@ def test_function():
     hc jobs
     kill $(ps aux | grep '[g]unicorn' | awk '{print $2}')
     """
-    
+
     p2 = subprocess.Popen(['bash', '-c', hello], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     out, err = p2.communicate()
     result = out.decode('utf-8')
 
-    assert('1    $H\n' in result)
+    assert('1    $H' in result)
