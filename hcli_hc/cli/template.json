@@ -344,10 +344,10 @@
                 },
                 {
                     "name": "description",
-                    "description": "The \"jog\" command accepts a continuous input stream of arrow key bytes, or other bytes, from the terminal and sends corresponding jog commands to the GRBL controller to get a real-time like jogging response from a CNC.\\n\\nNote that the terminal has to send bytes fast enough for jogging to respond correctly. If you are experiencing stuttering problems with continuous jogging, increase the repeat rate and initial delay of keystrokes in your terminal.\\n\\n\"esc\" unlock the jogger.\\n\\n\"left\" x-.\\n\\n\"right\" x+.\\n\\n\"up\" y+.\\n\\n\"down\" y-.\\n\\n\";\" z+.\\n\\n\"/\" z-.\\n\\n\"-\" reduces the feed rate by 250.\\n\\n\"=\" increases the feed rate by 250.\\n\\n\"[\" reduces the unit scaling by a factor of 10.\\n\\n\"]\" increases the unit scaling by a factor of 10.\\n\\n\"s\" output jogger status.\\n\\n\"u\" toggles the unit; imperial (default) or metric.\\n\\n\"i\" sets incremental mode.\\n\\n\"c\" sets continuous mode (default)"
+                    "description": "The \"jog\" command accepts a continuous input stream of arrow key bytes, or other bytes, from the terminal and sends corresponding jog commands to the GRBL controller to get a real-time like jogging response from a CNC.\\n\\nNote that the terminal has to send bytes fast enough for jogging to respond correctly. If you are experiencing stuttering problems with continuous jogging, modify the repeat rate and initial delay of keystrokes in your terminal (repeate_rate = 50 and repeat_delay = 200). You may also need to increase the block size (bs) of the hc jog command to consume and send larger blocks of bytes.\\n\\n\"esc\" unlock the jogger.\\n\\n\"left\" x-.\\n\\n\"right\" x+.\\n\\n\"up\" y+.\\n\\n\"down\" y-.\\n\\n\";\" z+.\\n\\n\"/\" z-.\\n\\n\"-\" reduces the feed rate by 250.\\n\\n\"=\" increases the feed rate by 250.\\n\\n\"[\" reduces the unit scaling by a factor of 10.\\n\\n\"]\" increases the unit scaling by a factor of 10.\\n\\n\"s\" output jogger status.\\n\\n\"u\" toggles the unit; imperial (default) or metric.\\n\\n\"i\" sets incremental mode.\\n\\n\"c\" sets continuous mode (default)"
                 },
                 {
-                    "name": "example",
+                    "name": "examples",
                     "description": "hc jog | bash &>/dev/null\n\ntrap 'stty sane' SIGINT; stty -icanon -echo; while input=$(dd bs=20 count=1 2>/dev/null); do echo \"$input\" | hc jog; done"
                 }
             ]
@@ -387,8 +387,8 @@
                     "description": "The \"zero\" command sends commands to help zero the CNC to working coordinates 0, 0, 0 for x, y, or z. If x, y, or z are omitted, the CNC is sent to 0, 0, 0 for all axes (x and y first, zero last)."
                 },
                 {
-                    "name": "example",
-                    "description": "hc zero x\n\nhc zero yz\n\nhc zero"
+                    "name": "examples",
+                    "description": "hc zero x\\n\\nhc zero yz\\n\\nhc zero"
                 }
             ],
             "parameter": {
@@ -434,8 +434,8 @@
                     "description": "The \"setzero\" command is used to setup the (G54 Coordinates) to zero for, x, y, or z."
                 },
                 {
-                    "name": "example",
-                    "description": "hc setzero x\n\nhc setzero xz\n\nhc setzero xyz"
+                    "name": "examples",
+                    "description": "hc setzero x\\n\\nhc setzero xz\\n\\nhc setzero xyz"
                 } 
             ],
             "parameter": {
